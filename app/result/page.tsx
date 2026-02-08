@@ -316,6 +316,18 @@ function ResultContent() {
           main div.relative:not([class*="max-w-4xl"]) img[src*="bossbaby"] ~ div.absolute {
             top: 70% !important;
           }
+          
+          /* 남성 결과값 전체 3% 위로 */
+          main div.relative:not([class*="max-w-4xl"]) img[src*="academiaboy"] ~ div.absolute,
+          main div.relative:not([class*="max-w-4xl"]) img[src*="cleanboy"] ~ div.absolute,
+          main div.relative:not([class*="max-w-4xl"]) img[src*="naturalboy"] ~ div.absolute,
+          main div.relative:not([class*="max-w-4xl"]) img[src*="softboy"] ~ div.absolute,
+          main div.relative:not([class*="max-w-4xl"]) img[src*="rockboy"] ~ div.absolute,
+          main div.relative:not([class*="max-w-4xl"]) img[src*="gentleboy"] ~ div.absolute,
+          main div.relative:not([class*="max-w-4xl"]) img[src*="streetboy"] ~ div.absolute,
+          main div.relative:not([class*="max-w-4xl"]) img[src*="techboy"] ~ div.absolute {
+            top: 70% !important;
+          }
         }
       `}} />
       <main className="min-h-screen relative">
