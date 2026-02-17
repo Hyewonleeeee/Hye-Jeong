@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const isPages = process.env.GITHUB_PAGES === 'true';
-const repoName = 'Kindle';
+const repoName = 'Hye-Jeong';
 const basePath = isPages ? `/${repoName}` : '';
 
 const nextConfig = {

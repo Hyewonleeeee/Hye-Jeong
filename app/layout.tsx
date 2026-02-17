@@ -3,12 +3,12 @@ import './globals.css';
 import { LanguageProvider } from '@/lib/i18n/LanguageProvider';
 
 export const metadata: Metadata = {
-  title: 'Kindle × GRANHAND — 추구미 테스트',
+  title: 'Hye-Jeong × GRANHAND — 추구미 테스트',
   description: '10개의 질문으로 당신의 추구미를 찾아드려요.',
 };
 
 // GitHub Pages basePath 처리
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || (process.env.GITHUB_PAGES === 'true' ? '/Kindle' : '');
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || (process.env.GITHUB_PAGES === 'true' ? '/Hye-Jeong' : '');
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
