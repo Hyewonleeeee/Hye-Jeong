@@ -799,7 +799,7 @@ export default function QuestionFlow() {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
             <div className="rounded-2xl bg-white/90 ring-1 ring-warmBrown/10 shadow-wood px-6 py-5">
               <p className="text-sm sm:text-base font-medium text-forestGreen">
-                {lang === 'ko' ? '추구미 산출 중' : 'Calculating your style'}
+                {t('calculatingStyle')}
                 {'.'.repeat(dotCount)}
               </p>
             </div>
@@ -835,12 +835,13 @@ export default function QuestionFlow() {
                     className="mt-2 w-full h-11 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md px-3 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 transition-all duration-200 hover:border-white/30 hover:shadow-md text-white"
                   >
                     <option value="" disabled className="text-gray-800">{t('select')}</option>
-                    <option value="10대" className="text-gray-800">10대</option>
-                    <option value="20대" className="text-gray-800">20대</option>
-                    <option value="30대" className="text-gray-800">30대</option>
-                    <option value="40대" className="text-gray-800">40대</option>
-                    <option value="50대 이상" className="text-gray-800">50대 이상</option>
+                    <option value="10s" className="text-gray-800">{t('age10s')}</option>
+                    <option value="20s" className="text-gray-800">{t('age20s')}</option>
+                    <option value="30s" className="text-gray-800">{t('age30s')}</option>
+                    <option value="40s" className="text-gray-800">{t('age40s')}</option>
+                    <option value="50plus" className="text-gray-800">{t('age50plus')}</option>
                   </select>
+                  <p className="mt-1 text-xs text-white/70">{t('ageHelp')}</p>
                 </div>
                 <div>
                   <fieldset>
@@ -891,7 +892,7 @@ export default function QuestionFlow() {
                   className="mt-2 w-full h-11 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md px-3 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 transition-all duration-200 hover:border-white/30 hover:shadow-md text-white"
                 >
                   <option value="" disabled className="text-gray-800">{t('select')}</option>
-                  <option value="선택안함" className="text-gray-800">선택안함</option>
+                  <option value="none" className="text-gray-800">{t('selectNone')}</option>
                   {['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ','ISFJ','ESTJ','ESFJ','ISTP','ISFP','ESTP','ESFP'].map(type => (
                     <option key={type} value={type} className="text-gray-800">{type}</option>
                   ))}

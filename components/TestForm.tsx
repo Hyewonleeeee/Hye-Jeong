@@ -119,6 +119,7 @@ export default function TestForm() {
                   className="mt-2 w-full rounded-xl border border-softSage/35 bg-white px-3 py-2 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-softSage transition-all duration-200 hover:border-softSage/50 hover:shadow-md"
                 >
                   <option value="" disabled>{t('select')}</option>
+                  <option value="none">{t('selectNone')}</option>
                   {[
                     'INTJ','INTP','ENTJ','ENTP',
                     'INFJ','INFP','ENFJ','ENFP',

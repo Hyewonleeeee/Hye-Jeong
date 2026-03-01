@@ -9,7 +9,7 @@ import { ChevronDown, Hand } from 'lucide-react';
 function ResultContent() {
   const searchParams = useSearchParams();
   const style = searchParams.get('style');
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const [isGrayscale, setIsGrayscale] = useState(true);
   const firstFragranceRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -64,6 +64,32 @@ function ResultContent() {
     "Rock Boy": "강렬하고 예술적인 무드, 반항적인 자유",
     "Gentle Boy": "품격 있고 성숙한 무드, 클래식 신사 스타일",
     "Tech Boy": "미니멀하고 기능적인 하이테크 감성, 도시적인 무드",
+  };
+
+  // 향수 영문 표기 (ko 제외 시 통일 표시용)
+  const fragranceNameEn: Record<string, string> = {
+    lily_owen: 'LILY OWEN',
+    toit_vert: 'TOIT VERT',
+    susie_salmon: 'SUSIE SALMON',
+    wegener: 'WEGENER',
+    marine_orchid: 'MARINE ORCHID',
+    kyujang: 'KYUJANG',
+    violette: 'VIOLETTE',
+    lucien_carr: 'LUCIEN CARR',
+    roland: 'ROLAND',
+  };
+
+  // 향수 설명 다국어 (ko는 fragranceData.description 그대로 사용)
+  const fragranceDescI18n: Record<string, { en: string; cn: string; jp: string }> = {
+    lily_owen: { en: 'Petals flowing in the spring rain.', cn: '春雨打湿的花瓣缓缓飘落。', jp: '春の雨に濡れて流れる花びら。' },
+    toit_vert: { en: 'The air of a greenhouse full of humidity.', cn: '充满湿气的植物园里的空气。', jp: '湿気に満ちた植物園の空気。' },
+    susie_salmon: { en: 'A nap after eating sweet fruit.', cn: '吃过香甜水果后的午睡。', jp: '甘い果物を食べた後の昼寝。' },
+    wegener: { en: 'A bouquet of fresh flowers in vivid colors.', cn: '用色彩鲜艳的鲜花制成的花束。', jp: '華やかな色合いの生花で作った花束。' },
+    marine_orchid: { en: 'A drive along a deserted coastal road.', cn: '在人迹罕至的海岸公路上驰骋。', jp: '人気の少ない海岸道路でのドライブ。' },
+    kyujang: { en: 'The scent of time felt from old paper.', cn: '从陈旧纸张中感受到的时光之香。', jp: '古い紙から感じる時の香り。' },
+    violette: { en: 'A violet flower steeped in autumn moonlight.', cn: '沐浴秋月之光的紫罗兰。', jp: '秋の月明かりを浴びたスミレの花。' },
+    lucien_carr: { en: 'A walk through a misty pine forest.', cn: '在雾霭笼罩的松林中漫步。', jp: '霧に包まれた松林の中の散歩。' },
+    roland: { en: 'The landscape of a paradise you escaped to.', cn: '逃往的乐园之景。', jp: '逃げてきた楽園の風景。' },
   };
 
   const fragranceData: Record<string, { name: string; koreanName: string; description: string }[]> = {
@@ -408,7 +434,7 @@ function ResultContent() {
                         e.currentTarget.style.color = needsWhiteButton ? '#FFFFFF' : '#2C2C2C';
                       }}
                     >
-                      {lang === 'ko' ? '홈으로 돌아가기' : 'Back to Home'}
+                      {t('backToHome')}
                     </Link>
                   </div>
                   
@@ -442,7 +468,7 @@ function ResultContent() {
                   opacity: 0.7
                 }}
               >
-                {lang === 'ko' ? '당신의 추구미는' : 'Your style is'}
+                {t('yourStyleIs')}
               </p>
               
               {/* Main Title: 결과 키워드 - 아주 크고 얇은 폰트 */}
@@ -497,7 +523,7 @@ function ResultContent() {
                       e.currentTarget.style.color = '#2C2C2C';
                     }}
                   >
-                    {lang === 'ko' ? '홈으로 돌아가기' : 'Back to Home'}
+                    {t('backToHome')}
                   </Link>
                 </div>
                 
@@ -556,7 +582,7 @@ function ResultContent() {
                       opacity: 0.7
                     }}
                   >
-                    {lang === 'ko' ? `추천 향수 ${idx + 1}.` : `Recommendation ${idx + 1}.`}
+                    {`${t('recommendationLabel')} ${idx + 1}.`}
                   </p>
                   <h2 
                     className="text-2xl sm:text-3xl font-bold mb-4"
@@ -564,7 +590,7 @@ function ResultContent() {
                       color: '#1A1A1A'
                     }}
                   >
-                    {fragrance.koreanName}
+                    {lang === 'ko' ? fragrance.koreanName : (fragranceNameEn[fragrance.name] ?? fragrance.koreanName)}
                   </h2>
                   <p 
                     className="text-base sm:text-lg leading-relaxed font-normal"
@@ -573,7 +599,7 @@ function ResultContent() {
                       opacity: 0.85
                     }}
                   >
-                    {fragrance.description}
+                    {lang === 'ko' ? fragrance.description : (fragranceDescI18n[fragrance.name]?.[lang] ?? fragrance.description)}
                   </p>
                 </div>
               </div>
@@ -594,13 +620,18 @@ function ResultContent() {
   );
 }
 
+function ResultPageFallback() {
+  const { t } = useLanguage();
+  return (
+    <main className="min-h-screen flex items-center justify-center">
+      <p>{t('loading')}</p>
+    </main>
+  );
+}
+
 export default function ResultPage() {
   return (
-    <Suspense fallback={
-      <main className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
-      </main>
-    }>
+    <Suspense fallback={<ResultPageFallback />}>
       <ResultContent />
     </Suspense>
   );
