@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState, useCallback, useEffect } from 'react';
+import { createContext, useContext, useMemo, useState, useCallback } from 'react';
 
 type Language = 'ko' | 'en' | 'cn' | 'jp';
 
@@ -213,19 +213,9 @@ type LanguageContextValue = {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  // 기본 첫 페이지는 항상 한국어로 표시, 이후 localStorage에 저장된 선택값 반영
+  // 홈페이지 들어갔을 때 첫 화면은 항상 한국어 (저장된 언어로 복원하지 않음)
   const [lang, setLang] = useState<Language>('ko');
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
-
-  // 마운트 후 localStorage에 저장된 언어가 있으면 적용 (이전에 사용자가 선택한 경우)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedLang = localStorage.getItem('app-lang') as Language | null;
-      if (savedLang && ['ko', 'en', 'cn', 'jp'].includes(savedLang)) {
-        setLang(savedLang);
-      }
-    }
-  }, []);
   
   // 언어 변경 함수를 useCallback으로 안정화
   const handleSetLang = useCallback((newLang: Language) => {
