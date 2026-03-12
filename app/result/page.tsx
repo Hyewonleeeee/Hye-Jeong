@@ -245,6 +245,15 @@ function ResultContent() {
     ...femaleTetoImages,
   };
 
+  // 언어별 추구미 이미지 경로 (ko: png/xxx.png, en/jp/cn: png/en|jp|cn/xxx.png)
+  const getStyleImagePath = (styleKey: string) => {
+    const basePath = allImages[styleKey];
+    if (!basePath) return '';
+    if (lang === 'ko') return basePath;
+    const filename = basePath.replace('png/', '');
+    return `png/${lang}/${filename}`;
+  };
+
   // 흰색 버튼/아이콘이 필요한 스타일 목록
   const whiteButtonStyles = ['darkAcademiaBoy', 'bossBabe', 'darkAcademia', 'gentleBoy', 'mobWife', 'rockBoy', 'rockstar', 'streetBoy', 'vampire', 'techBoy'];
   const needsWhiteButton = style && whiteButtonStyles.includes(style);
@@ -393,7 +402,7 @@ function ResultContent() {
             <>
               <div className="w-full flex justify-center items-center relative">
                 <img 
-                  src={`${basePath}/${allImages[style]}`}
+                  src={`${basePath}/${getStyleImagePath(style)}`}
                   alt={styleName}
                   className="w-full max-w-4xl mx-auto h-auto object-contain"
                 />

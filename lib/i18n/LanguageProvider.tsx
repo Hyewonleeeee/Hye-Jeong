@@ -213,19 +213,11 @@ type LanguageContextValue = {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  // localStorage에서 저장된 언어를 불러오거나 기본값 'ko' 사용
-  const [lang, setLang] = useState<Language>(() => {
-    if (typeof window !== 'undefined') {
-      const savedLang = localStorage.getItem('app-lang') as Language | null;
-      if (savedLang && ['ko', 'en', 'cn', 'jp'].includes(savedLang)) {
-        return savedLang;
-      }
-    }
-    return 'ko';
-  });
+  // 기본 첫 페이지는 항상 한국어로 표시, 이후 localStorage에 저장된 선택값 반영
+  const [lang, setLang] = useState<Language>('ko');
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
-  
-  // 앱 시작 시 localStorage에서 언어 확인
+
+  // 마운트 후 localStorage에 저장된 언어가 있으면 적용 (이전에 사용자가 선택한 경우)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedLang = localStorage.getItem('app-lang') as Language | null;
